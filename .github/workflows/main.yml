@@ -13,7 +13,7 @@ jobs:
           api-secret: ${{ secrets.API_SECRET }}
           module-id: 'module/e4dcd975-2717-4051-8ade-80f6ed4bcfb1'
           credential-id: 'credential/faa69987-9492-4cc7-ba9f-6a34fe9f8558'
-          environment: 'NUVLABOX_UUID=nuvlabox/e55836d1-cf7c-4280-b043-50b6f4ba6c23'
+          environment: 'NUVLABOX_UUID=nuvlabox/d951a85b-8e6a-41be-a90d-e5f2306c2963'
       # Use the output
       - name: Get the output
         run: echo "The output was ${{ steps.test.outputs.DEPLOYMENT_ID }}"
