@@ -69,10 +69,21 @@ def init():
 
 def stop_deployment(api, did):
     api.get(did + "/stop")
+    with timeout(60, f"Failed to stop deployment {did}"):
+        while True:
+            live_depl = api.get(did).data
+            state = live_depl.get('state')
+            if state == 'ERROR':
+                raise(f'Ended up in ERROR while stopping deployment {did}')
+            elif state == 'STOPPED':
+                break
 
 
 def delete_deployment(api, did):
-    api.delete(did)
+    try:
+        api.delete(did)
+    except:
+        api.operation(did, 'force_delete')
 
 
 if __name__ == '__main__':
