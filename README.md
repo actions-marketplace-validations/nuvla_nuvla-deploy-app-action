@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Tester
         id: test
-        uses: nuvla/nuvla-deploy-app-action@v1
+        uses: nuvla/nuvla-deploy-app-action@v2
         with:
           api-key: ${{ secrets.NUVLA_USER_API_KEY }}
           api-secret: ${{ secrets.NUVLA_USER_API_KEY }}
