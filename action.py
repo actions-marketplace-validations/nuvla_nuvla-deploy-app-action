@@ -61,8 +61,7 @@ def init():
     parser.add_argument('--environment',
                         dest='environment',
                         metavar='ENV1=VAL1,ENV2=VAL2,...',
-                        help='Comma separated list of environment variable to define for the deployment',
-                        required=True)
+                        help='Comma separated list of environment variable to define for the deployment')
 
     return parser.parse_args()
 
@@ -101,13 +100,14 @@ if __name__ == '__main__':
     depl = api.get(depl_id).data
     depl['parent'] = args.credential_id
     depl['tags'] = ["nuvla-deploy-app-action"]
-    environment = []
-    for env_var in args.environment.split(','):
-        environment.append({
-            "name": env_var.split('=')[0],
-            "value": env_var.split('=')[1]
-        })
-    depl['module']['content']['environmental-variables'] = environment
+    if args.environment:
+        environment = []
+        for env_var in args.environment.split(','):
+            environment.append({
+                "name": env_var.split('=')[0],
+                "value": env_var.split('=')[1]
+            })
+        depl['module']['content']['environmental-variables'] = environment
     api.edit(depl_id, depl)
 
     api.get(depl_id + "/start")
